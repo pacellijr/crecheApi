@@ -1,0 +1,255 @@
+swagger: "2.0"
+info:
+  description: This is the swagger file that goes with our server code
+  version: "1.0.0"
+  title: Creche API
+consumes:
+  - application/json
+produces:
+  - application/json
+
+basePath: /api
+
+# Paths supported by the server application
+paths:
+  /people:
+    get:
+      operationId: people.read_all
+      tags:
+        - People
+      summary: Read the entire list of people
+      description: Read the list of people
+      parameters:
+        - name: length
+          in: query
+          type: integer
+          description: Number of people to get from people
+          required: false
+        - name: offset
+          in: query
+          type: integer
+          description: Offset from beginning of list where to start gathering people
+          required: false
+      responses:
+        200:
+          description: Successfully read people list operation
+          schema:
+            type: array
+            items:
+              properties:
+                fname:
+                  type: string
+                lname:
+                  type: string
+                timestamp:
+                  type: string
+
+    post:
+      operationId: people.create
+      tags:
+        - People
+      summary: Create a person and add it to the people list
+      description: Create a new person in the people list
+      parameters:
+        - name: person
+          in: body
+          description: Person to create
+          required: True
+          schema:
+            type: object
+            properties:
+              fname:
+                type: string
+                description: First name of person to create
+              lname:
+                type: string
+                description: Last name of person to create
+      responses:
+        201:
+          description: Successfully created person in list
+
+  /people/{lname}:
+    get:
+      operationId: people.read_one
+      tags:
+        - People
+      summary: Read one person from the people list
+      description: Read one person from the people list
+      parameters:
+        - name: lname
+          in: path
+          description: Last name of the person to get from the list
+          type: string
+          required: True
+      responses:
+        200:
+          description: Successfully read person from people list operation
+          schema:
+            properties:
+              fname:
+                type: string
+              lname:
+                type: string
+              timestamp:
+                type: string
+
+    put:
+      operationId: people.update
+      tags:
+        - People
+      summary: Update a person in the people list
+      description: Update a person in the people list
+      parameters:
+        - name: lname
+          in: path
+          description: Last name of the person to update in the list
+          type: string
+          required: True
+        - name: person
+          in: body
+          schema:
+            type: object
+            properties:
+              fname:
+                type: string
+              lname:
+                type: string
+      responses:
+        200:
+          description: Successfully updated person in people list
+
+    delete:
+      operationId: people.delete
+      tags:
+        - People
+      summary: Delete a person from the people list
+      description: Delete a person
+      parameters:
+        - name: lname
+          in: path
+          type: string
+          required: True
+      responses:
+        200:
+          description: Successfully deleted a person from people list
+
+  /turma:
+    get:
+      operationId: turma.read_all
+      tags:
+        - Turma
+      summary: Lê toda a lista de turmas
+      description: Lê a lista de turmas
+      parameters:
+        - name: length
+          in: query
+          type: integer
+          description: Número de turmas a obter da lista de turmas
+          required: false
+        - name: offset
+          in: query
+          type: integer
+          description: Offset à partir do início da lista de onde começar a reunir turmas
+          required: false
+      responses:
+        200:
+          description: Operação de leitura da lista de turmas bem sucedida
+          schema:
+            type: array
+            items:
+              properties:
+                fname:
+                  type: string
+                lname:
+                  type: string
+                timestamp:
+                  type: string
+
+    post:
+      operationId: turma.create
+      tags:
+        - Turma
+      summary: Cria uma turma e adiciona à lista de turmas
+      description: Cria uma nova turma na lista de turmas
+      parameters:
+        - name: turma
+          in: body
+          description: Turma para criar
+          required: True
+          schema:
+            type: object
+            properties:
+              sigla:
+                type: string
+                description: Sigla da turma a ser criada
+              nome:
+                type: string
+                description: Nome da turma a ser criada
+      responses:
+        201:
+          description: Turma criada com sucesso na lista
+
+  /turma/{sigla}:
+    get:
+      operationId: turma.read_one
+      tags:
+        - Turma
+      summary: Lê uma turma da lista de turmas
+      description: Lê uma turma da lista de turmas
+      parameters:
+        - name: sigla
+          in: path
+          description: Sigla da turma a ser obtida da lista
+          type: string
+          required: True
+      responses:
+        200:
+          description: Operação de leitura da turma da lista realizada com sucesso
+          schema:
+            properties:
+              sigla:
+                type: string
+              nome:
+                type: string
+              timestamp:
+                type: string
+
+    put:
+      operationId: turma.update
+      tags:
+        - Turma
+      summary: Atualiza uma turma na lista de turmas
+      description: Atualiza uma turma na lista de turmas
+      parameters:
+        - name: sigla
+          in: path
+          description: Sigla da turma a ser atualizada
+          type: string
+          required: True
+        - name: turma
+          in: body
+          schema:
+            type: object
+            properties:
+              sigla:
+                type: string
+              nome:
+                type: string
+      responses:
+        200:
+          description: Turma atualizada com sucesso na lista de turmas
+
+    delete:
+      operationId: turma.delete
+      tags:
+        - Turma
+      summary: Remove uma turma da lista de turmas
+      description: Remove uma turma
+      parameters:
+        - name: sigla
+          in: path
+          type: string
+          required: True
+      responses:
+        200:
+          description: Turma removida com sucesso da lista de turmas
