@@ -158,9 +158,9 @@ paths:
             type: array
             items:
               properties:
-                fname:
+                sigla:
                   type: string
-                lname:
+                nome:
                   type: string
                 timestamp:
                   type: string

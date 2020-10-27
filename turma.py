@@ -53,12 +53,17 @@ TURMAS = {
 }
 
 
-def read_all(length, offset):
+def read_all(length=None, offset=None):
     """
     Essa função responde a requisições a /api/turma
     e retorna a lista completa de turmas
     :return:        json string of list of turma
     """
+    if(length is None):
+        length = TURMAS.__len__()
+    if(offset is None):
+        offset = 0
+
     # Create the list of people from our data
     return [TURMAS[key] for key in sorted(TURMAS.keys())[offset:(length+offset)]]
 
