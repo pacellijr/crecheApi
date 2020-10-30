@@ -4,6 +4,7 @@ import os
 
 # Create the application instance
 app = connexion.App(__name__, specification_dir='./')
+app.app.config.from_object(os.environ['APP_SETTINGS'])
 
 # Read the swagger.yml file to configure the endpoints
 app.add_api('swagger.yml')
